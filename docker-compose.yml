@@ -1,0 +1,17 @@
+version: '3'
+volumes:
+  rabbitmq_data:
+    driver: local
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE:-supersecretrabbitmqerlangcookie}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER_NAME:-rabbitmq}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_USER_PASSWORD:-rabbitmq}
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/
